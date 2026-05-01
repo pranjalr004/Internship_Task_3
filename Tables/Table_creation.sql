@@ -1,59 +1,61 @@
 CREATE TABLE students (
-    id      INTEGER PRIMARY KEY,
-    name    TEXT    NOT NULL,
-    age     INTEGER,
-    city    TEXT
+    id INT PRIMARY KEY,
+    Name VARCHAR(20),
+    Gender VARCHAR(10),
+    Age INT,
+    Grade VARCHAR(5),
+    MathScore INT,
+    ScienceScore INT,
+    EnglishScore INT
 );
 
 CREATE TABLE courses (
-    id          INTEGER PRIMARY KEY,
-    name        TEXT    NOT NULL,
-    instructor  TEXT,
-    credits     INTEGER
+    id          INT PRIMARY KEY,
+    name        VARCHAR(100)
 );
 
 CREATE TABLE enrollments (
-    id          INTEGER PRIMARY KEY,
-    student_id  INTEGER REFERENCES students(id),
-    course_id   INTEGER REFERENCES courses(id),
-    grade       INTEGER   -- marks out of 100
+    student_id  INT,
+    course_id   INT,
+    grade       INT,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
 -- Insert students
-INSERT INTO students VALUES (1, 'Aarav Sharma',   20, 'Jaipur');
-INSERT INTO students VALUES (2, 'Priya Mehta',    21, 'Delhi');
-INSERT INTO students VALUES (3, 'Rohan Verma',    22, 'Mumbai');
-INSERT INTO students VALUES (4, 'Sneha Patel',    20, 'Ahmedabad');
-INSERT INTO students VALUES (5, 'Karan Singh',    23, 'Jaipur');
-INSERT INTO students VALUES (6, 'Divya Joshi',    21, 'Pune');
-INSERT INTO students VALUES (7, 'Amit Yadav',     22, 'Lucknow');
-INSERT INTO students VALUES (8, 'Neha Gupta',     20, 'Delhi');
+-- Active: 1775625578002@@127.0.0.2@3306@studentmanagement
+-- Courses Table
+INSERT INTO courses VALUES
+(101,'Mathematics'),
+(102,'Science'),
+(103,'English');
 
+SELECT * FROM courses;
+-- Enrollment Table
+INSERT INTO enrollments VALUES
+(1,101,85),(1,102,88),(1,103,82),
+(2,101,75),(2,102,70),(2,103,78),
+(3,101,90),(3,102,92),(3,103,89),
+(4,101,88),(4,102,85),(4,103,91),
+(5,101,72),(5,102,74),(5,103,70),
+(6,101,35),(6,102,60),(6,103,38),
+(7,101,91),(7,102,89),(7,103,93),
+(8,101,78),(8,102,76),(8,103,80),
+(9,101,87),(9,102,90),(9,103,86),
+(10,101,30),(10,102,65),(10,103,35);
 
--- Insert courses
-INSERT INTO courses VALUES (1, 'Mathematics',       'Prof. Kumar',   4);
-INSERT INTO courses VALUES (2, 'Data Structures',   'Prof. Sharma',  3);
-INSERT INTO courses VALUES (3, 'Database Systems',  'Prof. Mehta',   3);
-INSERT INTO courses VALUES (4, 'Machine Learning',  'Prof. Verma',   4);
+SELECT * FROM enrollments;
 
--- Insert enrollments (student_id, course_id, grade)
-INSERT INTO enrollments VALUES (1,  1, 1, 85);
-INSERT INTO enrollments VALUES (2,  1, 2, 78);
-INSERT INTO enrollments VALUES (3,  2, 1, 92);
-INSERT INTO enrollments VALUES (4,  2, 3, 35);   -- FAIL
-INSERT INTO enrollments VALUES (5,  3, 1, 67);
-INSERT INTO enrollments VALUES (6,  3, 2, 90);
-INSERT INTO enrollments VALUES (7,  4, 1, 55);
-INSERT INTO enrollments VALUES (8,  4, 3, 72);
-INSERT INTO enrollments VALUES (9,  1, 3, 88);   -- Aarav in DB Systems
-INSERT INTO enrollments VALUES (10, 2, 4, 95);   -- Priya in ML
-INSERT INTO enrollments VALUES (11, 5, 2, 45);
-INSERT INTO enrollments VALUES (12, 5, 3, 38);   -- FAIL
-INSERT INTO enrollments VALUES (13, 6, 1, 73);
-INSERT INTO enrollments VALUES (14, 6, 4, 60);
-INSERT INTO enrollments VALUES (15, 7, 2, 28);   -- FAIL
-INSERT INTO enrollments VALUES (16, 7, 3, 50);
-INSERT INTO enrollments VALUES (17, 8, 1, 91);
-INSERT INTO enrollments VALUES (18, 8, 4, 82);
-INSERT INTO enrollments VALUES (19, 3, 3, 77);   -- Rohan in DB Systems
-INSERT INTO enrollments VALUES (20, 4, 4, 48);   -- Sneha in ML
+INSERT INTO students VALUES
+(1,'Pranjal','Male',20,'A',85,88,82),
+(2,'Aryan','Male',21,'B',75,70,78),
+(3,'Kunal','Male',20,'A',90,92,89),
+(4,'Anjali','Female',19,'A',88,85,91),
+(5,'Sneha','Female',22,'B',72,74,70),
+(6,'Rahul','Male',21,'C',65,60,68),
+(7,'Pooja','Female',20,'A',91,89,93),
+(8,'Vikas','Male',23,'B',78,76,80),
+(9,'Neha','Female',19,'A',87,90,86),
+(10,'Amit','Male',22,'C',60,65,62);
+
+SELECT * FROM students;
